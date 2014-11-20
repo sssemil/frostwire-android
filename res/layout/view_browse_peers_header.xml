@@ -26,8 +26,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:paddingRight="20dip" >
+        android:layout_centerVertical="true">
 
         <TextView
             android:id="@+id/view_browse_peers_header_text_title"

@@ -24,7 +24,6 @@ import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.Stack;
 
-import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.NotificationManager;
@@ -37,9 +36,10 @@ import android.content.ServiceConnection;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.DrawerLayout.SimpleDrawerListener;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -134,7 +134,7 @@ public class MainActivity extends AbstractActivity implements ConfigurationUpdat
     private boolean appiaStarted = false;
 
     private TimerSubscription playerSubscription;
-    
+
     private BroadcastReceiver mainBroadcastReceiver;
 
     public MainActivity() {
@@ -213,7 +213,7 @@ public class MainActivity extends AbstractActivity implements ConfigurationUpdat
         }
 
         drawerLayout = findView(R.id.drawer_layout);
-        drawerLayout.setDrawerListener(new SimpleDrawerListener() {
+        drawerLayout.setDrawerListener(new DrawerLayout.SimpleDrawerListener() {
             @Override
             public void onDrawerStateChanged(int newState) {
                 refreshPlayerItem();
@@ -419,7 +419,6 @@ public class MainActivity extends AbstractActivity implements ConfigurationUpdat
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         mToken = MusicUtils.bindToService(this, this);
     }
 
@@ -634,7 +633,7 @@ public class MainActivity extends AbstractActivity implements ConfigurationUpdat
 
     private void updateHeader(Fragment fragment) {
         try {
-            RelativeLayout placeholder = (RelativeLayout) getActionBar().getCustomView();//findView(R.id.activity_main_layout_header_placeholder);
+            RelativeLayout placeholder = (RelativeLayout) getSupportActionBar().getCustomView();//findView(R.id.activity_main_layout_header_placeholder);
             if (placeholder != null && placeholder.getChildCount() > 0) {
                 placeholder.removeAllViews();
             }
@@ -727,13 +726,16 @@ public class MainActivity extends AbstractActivity implements ConfigurationUpdat
     }
 
     private void setupActionBar() {
-        ActionBar bar = getActionBar();
-
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+        }
+        ActionBar bar = getSupportActionBar();
         bar.setCustomView(R.layout.view_custom_actionbar);
-
         bar.setDisplayShowCustomEnabled(true);
         bar.setDisplayHomeAsUpEnabled(true);
         bar.setHomeButtonEnabled(true);
+        bar.setDisplayShowTitleEnabled(false);
     }
 
     private void setupDrawer() {
@@ -754,12 +756,16 @@ public class MainActivity extends AbstractActivity implements ConfigurationUpdat
         mService = null;
     }
 
-    private static final class MenuDrawerToggle extends ActionBarDrawerToggle {
+    private class MenuDrawerToggle extends ActionBarDrawerToggle {
 
-        private final WeakReference<MainActivity> activityRef;
+        private WeakReference<MainActivity> activityRef;
 
         public MenuDrawerToggle(MainActivity activity, DrawerLayout drawerLayout) {
-            super(activity, drawerLayout, R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close);
+            super(activity,
+                    drawerLayout,
+                    (Toolbar) findViewById(R.id.toolbar),
+                    R.string.drawer_open,
+                    R.string.drawer_close);
 
             // aldenml: even if the parent class hold a strong reference, I decided to keep a weak one
             this.activityRef = Ref.weak(activity);

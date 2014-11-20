@@ -22,10 +22,10 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 
 /**
@@ -34,7 +34,7 @@ import android.view.View;
  * @author aldenml
  * 
  */
-public abstract class AbstractActivity extends Activity {
+public abstract class AbstractActivity extends ActionBarActivity {
 
     private final int layoutResId;
     private final ArrayList<String> fragmentTags;
