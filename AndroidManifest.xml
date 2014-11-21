@@ -140,7 +140,7 @@
 		<activity android:name="com.frostwire.android.gui.activities.WizardActivity"
 			android:label="@string/application_label" android:screenOrientation="portrait" />
 		<activity android:name="com.frostwire.android.gui.activities.PreferencesActivity"
-			android:label="@string/activity_preferences_name" android:theme="@style/Preferences" />
+			android:label="@string/activity_preferences_name" android:theme="@style/AppTheme.Base" />
 		<activity android:name="com.frostwire.android.gui.activities.BrowsePeerActivity"
 			android:label="@string/activity_browse_peer_name" />
 		<activity

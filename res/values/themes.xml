@@ -21,8 +21,6 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="Theme.FrostWire" parent="AppTheme.Base">
-        <item name="android:actionBarStyle">@style/ActionBar</item>
-        <item name="android:homeAsUpIndicator">@drawable/ic_ab_back</item>
         <item name="android:actionOverflowButtonStyle">@style/ActionButton.Overflow</item>
         <item name="android:windowBackground">@color/app_background</item>
         <item name="android:windowContentOverlay">@null</item>
@@ -33,7 +31,7 @@
         <item name="android:textColorPrimary">@color/app_text_primary</item>
     </style>
 
-    <style name="AppTheme.Base" parent="Theme.AppCompat">
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light">
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
     </style>

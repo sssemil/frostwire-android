@@ -108,6 +108,8 @@ public class MainActivity extends AbstractActivity implements ConfigurationUpdat
 
     private static boolean firstTime = true;
 
+    private static Toolbar mToolbar;
+
     private MainController controller;
 
     private DrawerLayout drawerLayout;
@@ -726,16 +728,18 @@ public class MainActivity extends AbstractActivity implements ConfigurationUpdat
     }
 
     private void setupActionBar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (mToolbar != null) {
+            setSupportActionBar(mToolbar);
         }
         ActionBar bar = getSupportActionBar();
-        bar.setCustomView(R.layout.view_custom_actionbar);
-        bar.setDisplayShowCustomEnabled(true);
-        bar.setDisplayHomeAsUpEnabled(true);
-        bar.setHomeButtonEnabled(true);
-        bar.setDisplayShowTitleEnabled(false);
+        if (bar != null) {
+            bar.setCustomView(R.layout.view_custom_actionbar);
+            bar.setDisplayShowCustomEnabled(true);
+            bar.setDisplayHomeAsUpEnabled(true);
+            bar.setHomeButtonEnabled(true);
+            bar.setDisplayShowTitleEnabled(false);
+        }
     }
 
     private void setupDrawer() {
@@ -756,14 +760,14 @@ public class MainActivity extends AbstractActivity implements ConfigurationUpdat
         mService = null;
     }
 
-    private class MenuDrawerToggle extends ActionBarDrawerToggle {
+    private static final class MenuDrawerToggle extends ActionBarDrawerToggle {
 
-        private WeakReference<MainActivity> activityRef;
+        private final WeakReference<MainActivity> activityRef;
 
         public MenuDrawerToggle(MainActivity activity, DrawerLayout drawerLayout) {
             super(activity,
                     drawerLayout,
-                    (Toolbar) findViewById(R.id.toolbar),
+                    mToolbar,
                     R.string.drawer_open,
                     R.string.drawer_close);
 
