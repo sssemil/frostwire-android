@@ -1,5 +1,5 @@
 /*
- * Created by Angel Leon (@gubatron), Alden Torres (aldenml)
+ * Created by Angel Leon (@gubatron), Alden Torres (aldenml), Emil Suleymanov (sssemil)
  * Copyright (c) 2011-2014, FrostWire(R). All rights reserved.
  *
  * This program is free software: you can redistribute it and/or modify
@@ -92,6 +92,7 @@ import com.frostwire.uxstats.UXStats;
  * 
  * @author gubatron
  * @author aldenml
+ * @author sssemil
  *
  */
 public class MainActivity extends AbstractActivity implements ConfigurationUpdateListener, OnDialogClickListener, ServiceConnection {
@@ -108,7 +109,7 @@ public class MainActivity extends AbstractActivity implements ConfigurationUpdat
 
     private static boolean firstTime = true;
 
-    private static Toolbar mToolbar;
+    private Toolbar mToolbar;
 
     private MainController controller;
 
@@ -743,7 +744,7 @@ public class MainActivity extends AbstractActivity implements ConfigurationUpdat
     }
 
     private void setupDrawer() {
-        drawerToggle = new MenuDrawerToggle(this, drawerLayout);
+        drawerToggle = new MenuDrawerToggle(this, drawerLayout, mToolbar);
         drawerLayout.setDrawerListener(drawerToggle);
     }
 
@@ -764,10 +765,10 @@ public class MainActivity extends AbstractActivity implements ConfigurationUpdat
 
         private final WeakReference<MainActivity> activityRef;
 
-        public MenuDrawerToggle(MainActivity activity, DrawerLayout drawerLayout) {
+        public MenuDrawerToggle(MainActivity activity, DrawerLayout drawerLayout, Toolbar toolbar) {
             super(activity,
                     drawerLayout,
-                    mToolbar,
+                    toolbar,
                     R.string.drawer_open,
                     R.string.drawer_close);
 
